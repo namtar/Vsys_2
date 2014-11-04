@@ -2,17 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+	<parent>
+        <groupId>de.htw.berlin.student</groupId>
+        <artifactId>vsys2-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    	</parent>
+
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.htw.berlin.student</groupId>
-	<artifactId>vsys2</artifactId>
+	<artifactId>socket-server</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0-SNAPSHOT</version>
-	<name>Verteilte Systeme Uebung2</name>
+	<name>Verteilte Systeme Uebung2 Server</name>
 
 	<licenses>
 	</licenses>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<developers>
@@ -22,20 +26,8 @@
 		</developer>
 	</developers>
 
-	<scm>
-		<url>https://github.com/namtar/graph.git</url>
-		<connection>scm:git:https://github.com/namtar/Vsys_2.git</connection>
-		<developerConnection>scm:git:https://github.com/namtar/Vsys_2.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
-
 	<dependencies>
 
-		<dependency>
-			<groupId>tablelayout</groupId>
-			<artifactId>TableLayout</artifactId>
-			<version>20050920</version>
-		</dependency>
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -114,7 +106,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>de.htw.berlin.student.vsys2.Main</mainClass>
+							<mainClass>de.htw.berlin.student.vsys2.server.Main</mainClass>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 						</manifest>
 					</archive>
@@ -148,7 +140,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>de.htw.berlin.student.vsys2.Main</mainClass>
+							<mainClass>de.htw.berlin.student.vsys2.server.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

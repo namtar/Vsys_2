@@ -105,7 +105,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>de.htw.berlin.student.vsys2.Main</mainClass>
+							<mainClass>de.htw.berlin.student.vsys2.client.Main</mainClass>
 							<classpathPrefix>dependency-jars/</classpathPrefix>
 						</manifest>
 					</archive>
@@ -139,7 +139,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>de.htw.berlin.student.vsys2.Main</mainClass>
+							<mainClass>de.htw.berlin.student.vsys2.client.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
