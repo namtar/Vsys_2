@@ -1,11 +1,11 @@
-package de.htw.berlin.student.vsys2.client;
+package de.htw.berlin.student.vsys2.both;
 
 /**
- * Main class for the socket client.
+ * Client that queries the server.
  * <p/>
  * Created by matthias.drummer on 04.11.14.
  */
-public class Main {
+public class Client {
 
 	public static void main(String[] args) {
 		
