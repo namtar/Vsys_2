@@ -33,6 +33,7 @@ public class MulitServerThread extends Thread {
             while ((inputLine = serverIn.readLine()) != null) {
                 if (inputLine.equals(ServerCommands.QUIT.getCommand())) {
                     serverOut.println("Bye Bye young Padavan.");
+                    serverOut.println(inputLine);
                     break;
                     // TODO: resourcen freigeben .... System.exit();
                 }

@@ -17,7 +17,7 @@ public class ParkingDeck {
 
     public void enter() throws IllegalParkingDeckOperationException {
 
-        if ((numberOfFreeSlots - 1) < 0) {
+        if ((numberOfFreeSlots - 1) < 1) {
             throw new IllegalParkingDeckOperationException("There are no slots left on the parking deck");
         }
 
