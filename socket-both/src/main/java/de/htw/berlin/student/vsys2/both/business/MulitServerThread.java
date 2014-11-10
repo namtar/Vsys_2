@@ -12,7 +12,7 @@ import java.net.Socket;
 /**
  * Threads that encapsulated the communication between server and one client.
  * <p/>
- * Created by matthias.drummer on 04.11.14.
+ * Created by matthias.drummer and ronny.timm on 04.11.14.
  */
 public class MulitServerThread extends Thread {
 

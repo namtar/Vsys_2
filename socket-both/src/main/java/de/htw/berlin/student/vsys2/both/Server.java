@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * Server class.
  * <p/>
- * Created by matthias.drummer on 04.11.14.
+ * Created by matthias.drummer and ronny.timm on 04.11.14.
  */
 public class Server {
 
@@ -25,6 +25,7 @@ public class Server {
         }
 
         int portNumber = Integer.parseInt(args[0]);
+        //int portNumber = 6700;
 
         ServerSocket serverSocket = null;
         try {

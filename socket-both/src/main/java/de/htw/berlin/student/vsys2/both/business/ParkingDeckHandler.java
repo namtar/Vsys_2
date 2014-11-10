@@ -6,7 +6,7 @@ import de.htw.berlin.student.vsys2.both.exceptions.IllegalParkingDeckOperationEx
 /**
  * Class that interprets the commands sent from a client and mentions the concurrency when accessing the parking deck Object.
  * <p/>
- * Created by matthias.drummer on 04.11.14.
+ * Created by matthias.drummer and ronny.timm on 04.11.14.
  */
 public class ParkingDeckHandler {
 

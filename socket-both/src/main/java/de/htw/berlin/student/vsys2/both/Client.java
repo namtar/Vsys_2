@@ -10,7 +10,7 @@ import java.rmi.UnknownHostException;
 /**
  * Client that queries the server.
  * <p/>
- * Created by matthias.drummer on 04.11.14.
+ * Created by matthias.drummer and ronny.timm on 04.11.14.
  */
 
 public class Client {
@@ -38,11 +38,29 @@ public class Client {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.equals("quit"))
                     break;
+                else {
+                    System.out.println(fromServer);
+                }
 
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
                     System.out.println("Client: " + fromUser);
-                    out.println(fromUser);
+                switch (fromUser) {
+                    case "free":
+                        out.println(fromUser);
+                        break;
+                    case "in":
+                        out.println(fromUser);
+                        break;
+                    case "out":
+                        out.println(fromUser);
+                        break;
+                    case "quit":
+                        out.println(fromUser);
+                        break;
+
+                    default: out.println("Falsche Eingabe");
+                     }
                 }
             }
         } catch (UnknownHostException e) {
