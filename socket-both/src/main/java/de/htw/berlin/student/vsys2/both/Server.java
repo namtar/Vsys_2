@@ -10,6 +10,8 @@ import java.util.logging.Logger;
  * Server class.
  * <p/>
  * Created by matthias.drummer and ronny.timm on 04.11.14.
+ * @author matthias.drummer
+ * @author ronny.timm
  */
 public class Server {
 

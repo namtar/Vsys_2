@@ -1,5 +1,7 @@
 package de.htw.berlin.student.vsys2.both;
 
+import de.htw.berlin.student.vsys2.both.enums.ServerCommands;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,64 +14,64 @@ import java.rmi.UnknownHostException;
  * <p/>
  * Created by matthias.drummer and ronny.timm on 04.11.14.
  */
-
 public class Client {
-    public static void main(String[] args) throws IOException {
 
-        if (args.length != 2) {
-            System.err.println(
-                    "Usage: java Client <host name> <port number>");
-            System.exit(1);
-        }
+	public static void main(String[] args) throws IOException {
 
-        String hostName = args[0];
-        int portNumber = Integer.parseInt(args[1]);
+		if (args.length != 2) {
+			System.err.println("Usage: java Client <host name> <port number>");
+			System.exit(1);
+		}
 
-        try (
-                Socket clientSocket = new Socket(hostName, portNumber);
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        ) {
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String fromServer;
-            String fromUser;
+		String hostName = args[0];
+		int portNumber = Integer.parseInt(args[1]);
 
-            while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
-                if (fromServer.equals("quit"))
-                    break;
-                else {
-                    System.out.println(fromServer);
-                }
+		try (
+				Socket clientSocket = new Socket(hostName, portNumber);
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		) {
 
-                fromUser = stdIn.readLine();
-                if (fromUser != null) {
-                    System.out.println("Client: " + fromUser);
-                switch (fromUser) {
-                    case "free":
-                        out.println(fromUser);
-                        break;
-                    case "in":
-                        out.println(fromUser);
-                        break;
-                    case "out":
-                        out.println(fromUser);
-                        break;
-                    case "quit":
-                        out.println(fromUser);
-                        break;
+			System.out.println("Client started.");
+			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+			String fromServer;
+			String fromUser;
 
-                    default: out.println("Falsche Eingabe");
-                     }
-                }
-            }
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                    hostName);
-            System.exit(1);
-        }
-    }
+			boolean quit = false;
+			while ((fromServer = in.readLine()) != null) {
+				System.out.println(fromServer);
+				if (quit) {
+					System.exit(0);
+				}
+
+				boolean inputCorrect = false;
+				while (!inputCorrect) {
+					fromUser = stdIn.readLine();
+					System.out.println("Client: " + fromUser);
+
+					for (ServerCommands commands : ServerCommands.values()) {
+						if (commands.getCommand().equals(fromUser.toLowerCase())) {
+							out.println(fromUser.toLowerCase());
+
+							if (commands == ServerCommands.QUIT) {
+								quit = true;
+							}
+							inputCorrect = true;
+							break;
+						}
+					}
+					if (!inputCorrect) {
+						System.out.println("Command not supported");
+					}
+				}
+			}
+
+		} catch (UnknownHostException e) {
+			System.err.println("Don't know about host " + hostName);
+			System.exit(1);
+		} catch (IOException e) {
+			System.err.println("Couldn't get I/O for the connection to " + hostName);
+			System.exit(1);
+		}
+	}
 }

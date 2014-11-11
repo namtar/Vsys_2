@@ -30,6 +30,7 @@ public class MulitServerThread extends Thread {
             ParkingDeckHandler parkingDeckHandler = new ParkingDeckHandler(PardingDeckFactory.getInstance().getParkingDeck());
 
             String inputLine;
+			serverOut.println("Hello Client");
             while ((inputLine = serverIn.readLine()) != null) {
                 if (inputLine.equals(ServerCommands.QUIT.getCommand())) {
                     serverOut.println("Bye Bye young Padavan.");

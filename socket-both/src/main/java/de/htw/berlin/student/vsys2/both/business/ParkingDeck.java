@@ -9,7 +9,7 @@ import de.htw.berlin.student.vsys2.both.exceptions.IllegalParkingDeckOperationEx
  */
 public class ParkingDeck {
 
-    private final static short MAX_PARKING_SLOTS = 5;
+    public final static short MAX_PARKING_SLOTS = 5;
     private short numberOfFreeSlots = 5;
 
     public ParkingDeck() {

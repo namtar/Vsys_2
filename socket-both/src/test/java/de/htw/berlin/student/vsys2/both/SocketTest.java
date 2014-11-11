@@ -1,6 +1,7 @@
 package de.htw.berlin.student.vsys2.both;
 
 import junit.framework.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ public class SocketTest {
 
     private static final String SERVER_PORT = "6700";
 
+	@Ignore
     @Test
     public void testServer() throws InterruptedException {
 
@@ -53,6 +55,7 @@ public class SocketTest {
         }
     }
 
+	@Ignore
     @Test
     public void testInFail() throws InterruptedException {
 
