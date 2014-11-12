@@ -1,6 +1,7 @@
 package de.htw.berlin.student.vsys2.both.business;
 
 import de.htw.berlin.student.vsys2.both.enums.ServerCommands;
+import de.htw.berlin.student.vsys2.both.exceptions.TerminateServerException;
 import de.htw.berlin.student.vsys2.both.util.PardingDeckFactory;
 
 import java.io.BufferedReader;
@@ -12,21 +13,21 @@ import java.net.Socket;
 /**
  * Threads that encapsulated the communication between server and one client.
  * <p/>
- * Created by matthias.drummer and ronny.timm on 04.11.14.
+ * @author matthias.drummer
+ * @author ronny.timm
  */
-public class MulitServerThread extends Thread {
+public class MultiServerRunnable implements Runnable {
 
-    private Socket socket = null;
+    private Socket clientSocket = null;
 
-    public MulitServerThread(Socket socket) {
-        super("Multi Server Thread");
-        this.socket = socket;
+    public MultiServerRunnable(Socket socket) {
+        this.clientSocket = socket;
     }
 
     public void run() {
         try {
-            PrintWriter serverOut = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter serverOut = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader serverIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             ParkingDeckHandler parkingDeckHandler = new ParkingDeckHandler(PardingDeckFactory.getInstance().getParkingDeck());
 
             String inputLine;
@@ -35,8 +36,7 @@ public class MulitServerThread extends Thread {
                 if (inputLine.equals(ServerCommands.QUIT.getCommand())) {
                     serverOut.println("Bye Bye young Padavan.");
                     serverOut.println(inputLine);
-                    break;
-                    // TODO: resourcen freigeben .... System.exit();
+                    throw new TerminateServerException();
                 }
                 serverOut.println(parkingDeckHandler.handleRequestCommand(inputLine));
                 //				outputLine = kkp.processInput(inputLine);
@@ -47,9 +47,9 @@ public class MulitServerThread extends Thread {
             }
             serverOut.close();
             serverIn.close();
-            socket.close();
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+	}
 }
