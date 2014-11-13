@@ -17,7 +17,7 @@ public class ParkingDeck {
 
     public void enter() throws IllegalParkingDeckOperationException {
 
-        if ((numberOfFreeSlots - 1) < 1) {
+        if (numberOfFreeSlots == 0) {
             throw new IllegalParkingDeckOperationException("There are no slots left on the parking deck");
         }
 
@@ -26,7 +26,7 @@ public class ParkingDeck {
 
     public void leave() throws IllegalParkingDeckOperationException {
 
-        if ((numberOfFreeSlots + 1) > MAX_PARKING_SLOTS) {
+        if (numberOfFreeSlots == MAX_PARKING_SLOTS) {
             throw new IllegalParkingDeckOperationException("There can not be more free slots available than the MAX number: " + MAX_PARKING_SLOTS);
         }
 

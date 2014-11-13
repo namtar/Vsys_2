@@ -31,5 +31,6 @@ public class Server {
 
 		ThreadPooledServer pooledServer = new ThreadPooledServer(portNumber);
 		new Thread(pooledServer).start();
+        System.out.println("Server started");
 	}
 }
