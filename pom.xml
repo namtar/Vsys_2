@@ -33,6 +33,7 @@
         <module>socket-client</module>
         <module>socket-server</module>
         <module>socket-both</module>
+        <module>socket-rpc</module>
     </modules>
     <build>
         <resources>
