@@ -1,4 +1,4 @@
-package de.htw.berlin.student.vsys2.both;
+package de.htw.berlin.student.vsys2.rpc;
 
 import org.junit.Ignore;
 import org.junit.Test;

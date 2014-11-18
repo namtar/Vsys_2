@@ -3,6 +3,9 @@ package de.htw.berlin.student.vsys2.rpc.business;
 import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
 import de.htw.berlin.student.vsys2.rpc.exceptions.IllegalParkingDeckOperationException;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Class that interprets the commands sent from a client and mentions the concurrency when accessing the parking deck Object.
  * <p/>
@@ -10,47 +13,53 @@ import de.htw.berlin.student.vsys2.rpc.exceptions.IllegalParkingDeckOperationExc
  */
 public class ParkingDeckHandler {
 
-    private static final String FAIL = "Fail";
-    private static final String SUCCESS = "Ok";
+	public static final String FAIL = "Fail";
+	public static final String SUCCESS = "Ok";
 
-    private ParkingDeck parkingDeck;
+	private ParkingDeck parkingDeck;
 
-    public ParkingDeckHandler(ParkingDeck parkingDeck) {
-        this.parkingDeck = parkingDeck;
-    }
+	public ParkingDeckHandler(ParkingDeck parkingDeck) {
+		this.parkingDeck = parkingDeck;
+	}
 
-    public String handleRequestCommand(String requestCommand) {
+	public String handleRequestCommand(Object[] requestCommand) {
 
-        ServerCommands command = ServerCommands.getFromCommand(requestCommand.toLowerCase());
-        String result = FAIL;
-        if (command != null) {
+		String result = null;
+		String methodName = (String) requestCommand[0];
+		Class[] types = null;
+		Object[] params = null;
 
-            synchronized (parkingDeck) {
-                switch (command) {
-                    case FREE:
-                        result = String.valueOf(parkingDeck.getNumberOfFreeSlots());
-                        break;
-                    case IN:
-                        try {
-                            parkingDeck.enter();
-                            result = SUCCESS;
-                        } catch (IllegalParkingDeckOperationException e) {
-                            result = FAIL;
-                        }
-                        break;
-                    case OUT:
-                        try {
-                            parkingDeck.leave();
-                            result = SUCCESS;
-                        } catch (IllegalParkingDeckOperationException e) {
-                            result = FAIL;
-                        }
-                        break;
-                    default:
-                        throw new UnsupportedOperationException("The operation is not supported: " + command);
-                }
-            }
-        }
-        return result;
-    }
+		if (requestCommand.length > 1) {
+			// we have parameters
+			types = new Class[requestCommand.length - 1];
+			params = new Object[requestCommand.length - 1];
+			for (int i = 1; i < requestCommand.length; i++) {
+				types[i - 1] = requestCommand[i].getClass();
+				params[i - 1] = requestCommand[i];
+			}
+		}
+
+		try {
+			Method method = ParkingDeck.class.getDeclaredMethod(methodName, types);
+			synchronized (parkingDeck) {
+
+				Object invokeReturn = method.invoke(parkingDeck, params);
+				if (invokeReturn != null) {
+					result = (String) invokeReturn;
+				} else {
+					result = SUCCESS;
+				}
+			}
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			result = FAIL;
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			result = FAIL;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
 }
