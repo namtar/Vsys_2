@@ -1,6 +1,6 @@
-package de.htw.berlin.student.vsys2.both.business;
+package de.htw.berlin.student.vsys2.rpc.business;
 
-import de.htw.berlin.student.vsys2.both.enums.ServerCommands;
+import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
 
 import java.io.IOException;
 import java.net.ServerSocket;

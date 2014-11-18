@@ -1,6 +1,6 @@
-package de.htw.berlin.student.vsys2.both;
+package de.htw.berlin.student.vsys2.rpc;
 
-import de.htw.berlin.student.vsys2.both.enums.ServerCommands;
+import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
 
 import java.io.BufferedReader;
 import java.io.IOException;

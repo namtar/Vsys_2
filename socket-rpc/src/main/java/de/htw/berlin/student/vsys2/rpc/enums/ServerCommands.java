@@ -1,4 +1,4 @@
-package de.htw.berlin.student.vsys2.both.enums;
+package de.htw.berlin.student.vsys2.rpc.enums;
 
 /**
  * Possible server commands enum.

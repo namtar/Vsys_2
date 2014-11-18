@@ -1,6 +1,6 @@
-package de.htw.berlin.student.vsys2.both.business;
+package de.htw.berlin.student.vsys2.rpc.business;
 
-import de.htw.berlin.student.vsys2.both.exceptions.IllegalParkingDeckOperationException;
+import de.htw.berlin.student.vsys2.rpc.exceptions.IllegalParkingDeckOperationException;
 
 /**
  * A parking deck.

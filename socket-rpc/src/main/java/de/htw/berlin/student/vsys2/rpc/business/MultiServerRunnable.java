@@ -1,7 +1,7 @@
-package de.htw.berlin.student.vsys2.both.business;
+package de.htw.berlin.student.vsys2.rpc.business;
 
-import de.htw.berlin.student.vsys2.both.enums.ServerCommands;
-import de.htw.berlin.student.vsys2.both.util.PardingDeckFactory;
+import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
+import de.htw.berlin.student.vsys2.rpc.util.PardingDeckFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

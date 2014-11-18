@@ -1,6 +1,6 @@
-package de.htw.berlin.student.vsys2.both.util;
+package de.htw.berlin.student.vsys2.rpc.util;
 
-import de.htw.berlin.student.vsys2.both.business.ParkingDeck;
+import de.htw.berlin.student.vsys2.rpc.business.ParkingDeck;
 
 /**
  * Parking Deck factory.

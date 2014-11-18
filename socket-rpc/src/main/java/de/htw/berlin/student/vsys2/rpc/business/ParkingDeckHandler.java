@@ -1,7 +1,7 @@
-package de.htw.berlin.student.vsys2.both.business;
+package de.htw.berlin.student.vsys2.rpc.business;
 
-import de.htw.berlin.student.vsys2.both.enums.ServerCommands;
-import de.htw.berlin.student.vsys2.both.exceptions.IllegalParkingDeckOperationException;
+import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
+import de.htw.berlin.student.vsys2.rpc.exceptions.IllegalParkingDeckOperationException;
 
 /**
  * Class that interprets the commands sent from a client and mentions the concurrency when accessing the parking deck Object.
