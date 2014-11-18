@@ -28,19 +28,21 @@ public class MultiServerRunnable extends Observable implements Runnable {
 			ObjectInputStream serverIn = new ObjectInputStream(clientSocket.getInputStream());
 			ParkingDeckHandler parkingDeckHandler = new ParkingDeckHandler(PardingDeckFactory.getInstance().getParkingDeck());
 
-			Object[] redArray = null;
 			try {
 				// read until there is no other input
 				// the convention is that the first element in the array is a string and therefore the server command
-				while ((redArray = (Object[]) serverIn.readObject()) != null) {
+				while (true) {
+					System.out.println("Iterate");
+					Object[] redArray = (Object[]) serverIn.readObject();
 
+					System.out.println(redArray);
 					if (redArray[0].equals(ServerCommands.QUIT.getCommand())) {
 						serverOut.writeObject("Bye Bye");
 						setChanged();
 						notifyObservers(ServerCommands.QUIT);
 						break;
 					}
-					serverOut.writeObject(parkingDeckHandler.handleRequestCommand((String[]) redArray));
+					serverOut.writeObject(parkingDeckHandler.handleRequestCommand(redArray));
 				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

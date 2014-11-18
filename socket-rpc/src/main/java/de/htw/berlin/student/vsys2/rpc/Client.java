@@ -2,12 +2,11 @@ package de.htw.berlin.student.vsys2.rpc;
 
 import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.rmi.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Client that queries the server.
@@ -28,42 +27,56 @@ public class Client {
 
 		try (
 				Socket clientSocket = new Socket(hostName, portNumber);
-				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+				ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
 		) {
 
 			System.out.println("Client started.");
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-			String fromServer;
+			Object fromServer;
 			String fromUser;
 
 			boolean quit = false;
-			while ((fromServer = in.readLine()) != null) {
-				System.out.println(fromServer);
-				if (quit) {
-					System.exit(0);
-				}
+			try {
+				while (true) {
+					fromServer = in.readObject();
+					System.out.println(fromServer);
+					if (quit) {
+						System.exit(0);
+					}
 
-				boolean inputCorrect = false;
-				while (!inputCorrect) {
-					fromUser = stdIn.readLine();
-					System.out.println("Client: " + fromUser);
+					boolean inputCorrect = false;
+					while (!inputCorrect) {
+						fromUser = stdIn.readLine();
+						System.out.println("Client: " + fromUser);
 
-					for (ServerCommands commands : ServerCommands.values()) {
-						if (commands.getCommand().equals(fromUser.toLowerCase())) {
-							out.println(fromUser.toLowerCase());
+						for (ServerCommands commands : ServerCommands.values()) {
+							if (commands.getCommand().equals(fromUser.toLowerCase())) {
+								List<Object> params = new ArrayList<Object>();
 
-							if (commands == ServerCommands.QUIT) {
-								quit = true;
+								params.add(fromUser.toLowerCase());
+								if (commands == ServerCommands.IN || commands == ServerCommands.OUT) {
+									System.out.println("Anzahl Autos");
+									Integer numberOfCars = Integer.valueOf(stdIn.readLine());
+									params.add(numberOfCars);
+								}
+
+								out.writeObject(params.toArray());
+
+								if (commands == ServerCommands.QUIT) {
+									quit = true;
+								}
+								inputCorrect = true;
+								break;
 							}
-							inputCorrect = true;
-							break;
+						}
+						if (!inputCorrect) {
+							System.out.println("Command not supported");
 						}
 					}
-					if (!inputCorrect) {
-						System.out.println("Command not supported");
-					}
 				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
 
 		} catch (UnknownHostException e) {

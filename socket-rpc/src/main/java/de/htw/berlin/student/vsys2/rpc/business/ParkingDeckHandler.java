@@ -1,8 +1,5 @@
 package de.htw.berlin.student.vsys2.rpc.business;
 
-import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
-import de.htw.berlin.student.vsys2.rpc.exceptions.IllegalParkingDeckOperationException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -24,6 +21,7 @@ public class ParkingDeckHandler {
 
 	public String handleRequestCommand(Object[] requestCommand) {
 
+		System.out.println("Handle: " + requestCommand);
 		String result = null;
 		String methodName = (String) requestCommand[0];
 		Class[] types = null;

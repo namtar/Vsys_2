@@ -44,6 +44,7 @@ public class ThreadPooledServer implements Runnable, Observer {
 
         while (!isStopped()) {
             try {
+				System.out.println("Waiting for clients");
                 Socket clientSocket = serverSocket.accept();
                 MultiServerRunnable runnable = new MultiServerRunnable(clientSocket);
                 runnable.addObserver(this);
