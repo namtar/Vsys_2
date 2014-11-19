@@ -62,6 +62,7 @@ public class Client {
 								}
 
 								out.writeObject(params.toArray());
+                                out.flush();
 
 								if (commands == ServerCommands.QUIT) {
 									quit = true;

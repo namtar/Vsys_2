@@ -43,9 +43,10 @@ public class ThreadPooledServer implements Runnable, Observer {
         createServerSocket();
 
         while (!isStopped()) {
+            Socket clientSocket = null;
             try {
 				System.out.println("Waiting for clients");
-                Socket clientSocket = serverSocket.accept();
+                clientSocket = serverSocket.accept();
                 MultiServerRunnable runnable = new MultiServerRunnable(clientSocket);
                 runnable.addObserver(this);
                 threadPool.execute(runnable);
@@ -55,6 +56,14 @@ public class ThreadPooledServer implements Runnable, Observer {
                     return;
                 }
                 throw new RuntimeException("Error accepting client connection", e);
+            } finally {
+//                if(clientSocket != null) {
+//                    try {
+//                        clientSocket.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
             }
 
         }
