@@ -1,6 +1,7 @@
 package de.htw.berlin.student.vsys2.rpc;
 
 import de.htw.berlin.student.vsys2.rpc.enums.ServerCommands;
+import de.htw.berlin.student.vsys2.rpc.util.MeineEingabe;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,6 +14,7 @@ import java.util.List;
  * <p/>
  * Created by matthias.drummer and ronny.timm on 04.11.14.
  */
+
 public class Client {
 
 	public static void main(String[] args) throws IOException {
@@ -50,32 +52,27 @@ public class Client {
 						fromUser = stdIn.readLine();
 						System.out.println("Client: " + fromUser);
 
-						for (ServerCommands commands : ServerCommands.values()) {
-							if (commands.getCommand().equals(fromUser.toLowerCase())) {
-								List<Object> params = new ArrayList<Object>();
-
-								params.add(fromUser.toLowerCase());
-								if (commands == ServerCommands.IN || commands == ServerCommands.OUT) {
-									System.out.println("Anzahl Autos");
-									Integer numberOfCars = Integer.valueOf(stdIn.readLine());
-									params.add(numberOfCars);
-								}
-
-								out.writeObject(params.toArray());
-                                out.flush();
-
-								if (commands == ServerCommands.QUIT) {
-									quit = true;
-								}
-								inputCorrect = true;
-								break;
+						String[] arrayFromUser = fromUser.split(" ");
+						if (MeineEingabe.checkUserInput(arrayFromUser)) {
+							List<Object> params = new ArrayList<Object>();
+							for (int k = 0; k < arrayFromUser.length - 1; k++) {
+								params.add(arrayFromUser[k]);
 							}
-						}
-						if (!inputCorrect) {
-							System.out.println("Command not supported");
+
+							MeineEingabe.checkLeaveEnter(arrayFromUser);
+
+							out.writeObject(params.toArray());
+							out.flush();
+
+							inputCorrect = true;
+							break;
 						}
 					}
+					if (!inputCorrect) {
+						System.out.println("Command not supported");
+					}
 				}
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}

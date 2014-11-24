@@ -24,18 +24,28 @@ public class ParkingDeckHandler {
 		System.out.println("Handle: " + requestCommand);
 		String result = null;
 		String methodName = (String) requestCommand[0];
-		Class[] types = null;
-		Object[] params = null;
+		//Class[] types = null;
+		//Object[] params = null;
+		System.out.println(requestCommand);
 
-		if (requestCommand.length > 1) {
-			// we have parameters
-			types = new Class[requestCommand.length - 1];
-			params = new Object[requestCommand.length - 1];
-			for (int i = 1; i < requestCommand.length; i++) {
-				types[i - 1] = requestCommand[i].getClass();
-				params[i - 1] = requestCommand[i];
-			}
+		Object[] params = new Object[requestCommand.length - 1];
+		for (int i = 0; i < params.length; i++) {
+			params[i] = Integer.parseInt(requestCommand[i + 1].toString());
 		}
+		Class[] types = new Class[params.length];
+		for (int i = 0; i < params.length; i++) {
+			types[i] = params[i].getClass();
+		}
+
+		//if (requestCommand.length > 1) {
+		// we have parameters
+		//types = new Class[requestCommand.length - 1];
+		//params = new Object[requestCommand.length - 1];
+		//for (int i = 1; i < requestCommand.length; i++) {
+		//	types[i - 1] = requestCommand[i].getClass();
+		//	params[i - 1] = requestCommand[i];
+		//}
+		//}
 
 		try {
 			Method method = ParkingDeck.class.getDeclaredMethod(methodName, types);
@@ -51,9 +61,11 @@ public class ParkingDeckHandler {
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 			result = FAIL;
+			System.out.println("Blaa");
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 			result = FAIL;
+			System.out.println("Blaa2");
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
