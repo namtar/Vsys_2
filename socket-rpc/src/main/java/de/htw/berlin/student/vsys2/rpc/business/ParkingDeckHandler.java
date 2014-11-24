@@ -24,28 +24,18 @@ public class ParkingDeckHandler {
 		System.out.println("Handle: " + requestCommand);
 		String result = null;
 		String methodName = (String) requestCommand[0];
-		//Class[] types = null;
-		//Object[] params = null;
-		System.out.println(requestCommand);
+        Class[] types = null;
+        Object[] params = null;
 
-		Object[] params = new Object[requestCommand.length - 1];
-		for (int i = 0; i < params.length; i++) {
-			params[i] = Integer.parseInt(requestCommand[i + 1].toString());
-		}
-		Class[] types = new Class[params.length];
-		for (int i = 0; i < params.length; i++) {
-			types[i] = params[i].getClass();
-		}
-
-		//if (requestCommand.length > 1) {
-		// we have parameters
-		//types = new Class[requestCommand.length - 1];
-		//params = new Object[requestCommand.length - 1];
-		//for (int i = 1; i < requestCommand.length; i++) {
-		//	types[i - 1] = requestCommand[i].getClass();
-		//	params[i - 1] = requestCommand[i];
-		//}
-		//}
+        if (requestCommand.length > 1) {
+            // we have parameters
+            types = new Class[requestCommand.length - 1];
+            params = new Object[requestCommand.length - 1];
+            for (int i = 1; i < requestCommand.length; i++) {
+                types[i - 1] = requestCommand[i].getClass();
+                params[i - 1] = requestCommand[i];
+            }
+        }
 
 		try {
 			Method method = ParkingDeck.class.getDeclaredMethod(methodName, types);

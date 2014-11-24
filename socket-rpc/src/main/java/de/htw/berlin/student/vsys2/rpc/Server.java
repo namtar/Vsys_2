@@ -19,12 +19,14 @@ public class Server {
 
 	public static void main(String[] args) {
 
-		if (args.length != 1) {
-			System.err.println("Usage: java Server <port number>");
-			System.exit(1);
-		}
+//		if (args.length != 1) {
+//			System.err.println("Usage: java Server <port number>");
+//			System.exit(1);
+//		}
+//
+//		int portNumber = Integer.parseInt(args[0]);
+        int portNumber = 6700;
 
-		int portNumber = Integer.parseInt(args[0]);
 
 		ThreadPooledServer pooledServer = new ThreadPooledServer(portNumber);
 		new Thread(pooledServer).start();
