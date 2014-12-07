@@ -34,6 +34,7 @@
         <module>socket-server</module>
         <module>socket-both</module>
         <module>socket-rpc</module>
+        <module>socket-rmi</module>
     </modules>
     <build>
         <resources>
