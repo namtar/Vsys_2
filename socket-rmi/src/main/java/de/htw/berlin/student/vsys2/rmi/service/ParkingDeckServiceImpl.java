@@ -52,4 +52,10 @@ public class ParkingDeckServiceImpl extends UnicastRemoteObject implements Parki
             return Integer.valueOf(parkingDeck.getNumberOfFreeSlots());
         }
     }
+
+    @Override
+    public double getStatistic() throws RemoteException {
+        // try without synchronized....
+        return parkingDeck.getStatistic();
+    }
 }

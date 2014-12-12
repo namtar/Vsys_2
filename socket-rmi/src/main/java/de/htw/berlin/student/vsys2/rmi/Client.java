@@ -34,10 +34,11 @@ public class Client {
             System.out.println(1 + " für Enter.");
             System.out.println(2 + " für Leave.");
             System.out.println(3 + " freie Plätze.");
-            System.out.println(4 + " Beenden");
+            System.out.println(4 + " Statistik");
+            System.out.println(5 + " Beenden");
 
             int input = stdIn.nextInt();
-            if (input == 4) {
+            if (input == 5) {
                 stdIn.close();
                 break;
             } else if (input == 1 || input == 2) {
@@ -59,7 +60,9 @@ public class Client {
                     }
                 }
             } else if (input == 3) {
-                System.out.println(parkingDeckService.getNumberOfFreeSlots());
+                System.out.println("Anzahl freie Plätze: " + parkingDeckService.getNumberOfFreeSlots());
+            } else if (input == 4) {
+                System.out.println("Statistik: " + parkingDeckService.getStatistic());
             }
         }
 

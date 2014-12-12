@@ -38,4 +38,11 @@ public interface ParkingDeckService extends Remote {
      */
     int getNumberOfFreeSlots() throws RemoteException;
 
+    /**
+     * Gets the collected parking deck utilization statistic value.
+     *
+     * @return the utilization value
+     * @throws RemoteException
+     */
+    double getStatistic() throws RemoteException;
 }
