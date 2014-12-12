@@ -1,7 +1,13 @@
 package de.htw.berlin.student.vsys2.rmi;
 
-import de.htw.berlin.student.vsys2.rmi.business.ThreadPooledServer;
+import de.htw.berlin.student.vsys2.rmi.service.ParkingDeckService;
+import de.htw.berlin.student.vsys2.rmi.service.ParkingDeckServiceImpl;
+import de.htw.berlin.student.vsys2.rmi.service.ServerConstans;
 
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.logging.Logger;
 
 /**
@@ -13,23 +19,13 @@ import java.util.logging.Logger;
  */
 public class Server {
 
-	//	private final static int MAX_CLIENTS = 10;
+    private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
 
-	private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
+    public static void main(String[] args) throws RemoteException, AlreadyBoundException {
 
-	public static void main(String[] args) {
-
-//		if (args.length != 1) {
-//			System.err.println("Usage: java Server <port number>");
-//			System.exit(1);
-//		}
-//
-//		int portNumber = Integer.parseInt(args[0]);
-        int portNumber = 6700;
-
-
-		ThreadPooledServer pooledServer = new ThreadPooledServer(portNumber);
-		new Thread(pooledServer).start();
+        ParkingDeckService parkingDeckService = new ParkingDeckServiceImpl();
+        Registry registry = LocateRegistry.createRegistry(ServerConstans.SERVER_PORT);
+        registry.bind(ServerConstans.RMI_ID, parkingDeckService);
         System.out.println("Server started");
-	}
+    }
 }
