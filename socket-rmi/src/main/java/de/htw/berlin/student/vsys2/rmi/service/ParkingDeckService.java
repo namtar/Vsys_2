@@ -1,5 +1,7 @@
 package de.htw.berlin.student.vsys2.rmi.service;
 
+import de.htw.berlin.student.vsys2.rmi.exceptions.IllegalParkingDeckOperationException;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -15,16 +17,18 @@ public interface ParkingDeckService extends Remote {
      *
      * @param numberOfCars the number of cars to enter with
      * @throws java.rmi.RemoteException
+     * @throws de.htw.berlin.student.vsys2.rmi.exceptions.IllegalParkingDeckOperationException
      */
-    void enter(int numberOfCars) throws RemoteException;
+    void enter(int numberOfCars) throws RemoteException, IllegalParkingDeckOperationException;
 
     /**
      * Leaves the parking deck with the given number of cars.
      *
      * @param numberOfCars the number of cars to leave with
      * @throws java.rmi.RemoteException
+     * @throws de.htw.berlin.student.vsys2.rmi.exceptions.IllegalParkingDeckOperationException
      */
-    void leave(int numberOfCars) throws RemoteException;
+    void leave(int numberOfCars) throws RemoteException, IllegalParkingDeckOperationException;
 
     /**
      * Returns the number of free slots left on the parking deck.

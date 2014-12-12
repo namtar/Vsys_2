@@ -1,5 +1,6 @@
 package de.htw.berlin.student.vsys2.rmi;
 
+import de.htw.berlin.student.vsys2.rmi.exceptions.IllegalParkingDeckOperationException;
 import de.htw.berlin.student.vsys2.rmi.service.ParkingDeckService;
 import de.htw.berlin.student.vsys2.rmi.service.ServerConstans;
 
@@ -45,9 +46,17 @@ public class Client {
                 int numberOfCars = stdIn.nextInt();
 
                 if (input == 1) {
-                    parkingDeckService.enter(numberOfCars);
+                    try {
+                        parkingDeckService.enter(numberOfCars);
+                    } catch (IllegalParkingDeckOperationException e) {
+                        System.out.println(e.getMessage());
+                    }
                 } else {
-                    parkingDeckService.leave(numberOfCars);
+                    try {
+                        parkingDeckService.leave(numberOfCars);
+                    } catch (IllegalParkingDeckOperationException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             } else if (input == 3) {
                 System.out.println(parkingDeckService.getNumberOfFreeSlots());

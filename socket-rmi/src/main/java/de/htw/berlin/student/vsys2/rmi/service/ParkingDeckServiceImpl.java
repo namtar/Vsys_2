@@ -27,13 +27,9 @@ public class ParkingDeckServiceImpl extends UnicastRemoteObject implements Parki
      * {@inheritDoc}
      */
     @Override
-    public void enter(int numberOfCars) {
+    public void enter(int numberOfCars) throws IllegalParkingDeckOperationException {
         synchronized (parkingDeck) {
-            try {
-                parkingDeck.enter(numberOfCars);
-            } catch (IllegalParkingDeckOperationException e) {
-                e.printStackTrace();
-            }
+            parkingDeck.enter(numberOfCars);
         }
     }
 
@@ -41,13 +37,9 @@ public class ParkingDeckServiceImpl extends UnicastRemoteObject implements Parki
      * {@inheritDoc}
      */
     @Override
-    public void leave(int numberOfCars) {
+    public void leave(int numberOfCars) throws IllegalParkingDeckOperationException {
         synchronized (parkingDeck) {
-            try {
-                parkingDeck.leave(numberOfCars);
-            } catch (IllegalParkingDeckOperationException e) {
-                e.printStackTrace();
-            }
+            parkingDeck.leave(numberOfCars);
         }
     }
 
