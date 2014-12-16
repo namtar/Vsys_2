@@ -3,7 +3,7 @@ package de.htw.berlin.student.vsys2.rmi;
 import de.htw.berlin.student.vsys2.rmi.business.StatisticsTimer;
 import de.htw.berlin.student.vsys2.rmi.service.ParkingDeckService;
 import de.htw.berlin.student.vsys2.rmi.service.ParkingDeckServiceImpl;
-import de.htw.berlin.student.vsys2.rmi.service.ServerConstans;
+import de.htw.berlin.student.vsys2.rmi.service.ServerConstants;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -26,8 +26,8 @@ public class Server {
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
 
         ParkingDeckService parkingDeckService = new ParkingDeckServiceImpl();
-        Registry registry = LocateRegistry.createRegistry(ServerConstans.SERVER_PORT);
-        registry.bind(ServerConstans.RMI_ID, parkingDeckService);
+        Registry registry = LocateRegistry.createRegistry(ServerConstants.SERVER_PORT);
+        registry.bind(ServerConstants.RMI_ID, parkingDeckService);
         System.out.println("Server started");
 
         Timer timer = new Timer();

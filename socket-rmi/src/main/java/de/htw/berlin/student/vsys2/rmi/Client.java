@@ -2,7 +2,7 @@ package de.htw.berlin.student.vsys2.rmi;
 
 import de.htw.berlin.student.vsys2.rmi.exceptions.IllegalParkingDeckOperationException;
 import de.htw.berlin.student.vsys2.rmi.service.ParkingDeckService;
-import de.htw.berlin.student.vsys2.rmi.service.ServerConstans;
+import de.htw.berlin.student.vsys2.rmi.service.ServerConstants;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -22,8 +22,8 @@ public class Client {
 
         System.out.println("Client started.");
 
-        Registry registry = LocateRegistry.getRegistry("localhost", ServerConstans.SERVER_PORT);
-        ParkingDeckService parkingDeckService = (ParkingDeckService) registry.lookup(ServerConstans.RMI_ID);
+        Registry registry = LocateRegistry.getRegistry("localhost", ServerConstants.SERVER_PORT);
+        ParkingDeckService parkingDeckService = (ParkingDeckService) registry.lookup(ServerConstants.RMI_ID);
 
         Scanner stdIn = new Scanner(System.in);
 
